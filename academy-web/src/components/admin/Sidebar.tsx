@@ -30,7 +30,7 @@ export default function AdminSidebar() {
         </div>
         <div>
           <p className="text-white font-bold text-sm leading-none tracking-tight">
-            kidslab<span className="text-blue-400">.lk</span>
+            kid<span style={{ color: "#e07070" }}>s</span>lab.lk
           </p>
           <p className="text-slate-500 text-[10px] mt-0.5 font-medium tracking-widest uppercase">Admin</p>
         </div>

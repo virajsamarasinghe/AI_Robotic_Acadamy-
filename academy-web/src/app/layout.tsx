@@ -25,10 +25,6 @@ export const metadata: Metadata = {
   title: "kidslab.lk — AI & Robotics Academy for Kids",
   description:
     "Sri Lanka's leading AI & Robotics academy for young innovators, conducted by Computer Engineers from the University of Ruhuna, Faculty of Engineering.",
-  icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
-  },
 };
 
 export default function RootLayout({

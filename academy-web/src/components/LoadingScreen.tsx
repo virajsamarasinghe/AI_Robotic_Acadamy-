@@ -75,7 +75,7 @@ export default function LoadingScreen() {
             className="text-center"
           >
             <p className="text-2xl font-bold text-slate-900 tracking-tight">
-              kidslab<span className="text-blue-600">.lk</span>
+              <span style={{ color: "var(--brand-navy)" }}>kid</span><span style={{ color: "var(--brand-red)" }}>s</span><span style={{ color: "var(--brand-navy)" }}>lab.lk</span>
             </p>
             <p className="text-sm text-slate-400 mt-1">AI & Robotics Academy</p>
           </motion.div>

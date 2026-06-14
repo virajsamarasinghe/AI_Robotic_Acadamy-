@@ -10,7 +10,6 @@ const links = [
   { label: "Programs", href: "#programs" },
   { label: "About", href: "#about" },
   { label: "Team", href: "#team" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -31,19 +30,19 @@ export default function Navbar() {
           : "bg-white/80 backdrop-blur-sm"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-screen-2xl mx-auto px-6 xl:px-12 2xl:px-16 h-16 xl:h-20 2xl:h-24 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2.5">
           <Image
             src="/logo.png"
             alt="kidslab.lk logo"
-            width={36}
-            height={36}
-            className="rounded-xl object-contain"
+            width={52}
+            height={52}
+            className="rounded-lg object-contain w-12 h-12 xl:w-14 xl:h-14 2xl:w-16 2xl:h-16"
             priority
           />
-          <span className="font-bold text-slate-900 text-lg tracking-tight">
-            kidslab<span className="text-blue-600">.lk</span>
+          <span className="font-bold text-lg xl:text-xl 2xl:text-2xl tracking-tight" style={{ color: "var(--brand-navy)" }}>
+            kid<span style={{ color: "var(--brand-red)" }}>s</span>lab.lk
           </span>
         </a>
 
@@ -53,7 +52,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-150"
+              className="px-4 py-2 text-sm xl:text-base 2xl:text-lg font-medium text-slate-600 hover:text-[#1d2b52] hover:bg-blue-50 rounded-lg transition-all duration-150"
             >
               {link.label}
             </a>
@@ -61,10 +60,15 @@ export default function Navbar() {
         </nav>
 
         {/* CTA */}
-        <div className="flex items-center gap-3">
-          <a href="#enroll" className="hidden md:block">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-5 h-9 rounded-full shadow-sm shadow-blue-200 transition-all">
-              Enroll Now
+        <div className="flex items-center gap-2">
+          <a href="#contact" className="hidden md:block">
+            <Button variant="outline" className="text-sm xl:text-base 2xl:text-lg font-semibold px-5 xl:px-7 h-9 xl:h-11 2xl:h-12 rounded-full border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all" style={{ color: "var(--brand-navy)" }}>
+              Contact Me
+            </Button>
+          </a>
+          <a href="/register" className="hidden md:block">
+            <Button className="text-white font-semibold text-sm xl:text-base 2xl:text-lg px-5 xl:px-7 h-9 xl:h-11 2xl:h-12 rounded-full shadow-sm transition-all" style={{ backgroundColor: "var(--brand-navy)" }}>
+              Register
             </Button>
           </a>
           {/* Mobile toggle */}
@@ -89,14 +93,19 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="px-4 py-2.5 text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg"
+              className="px-4 py-2.5 text-sm font-medium text-slate-700 hover:text-[#1d2b52] hover:bg-blue-50 rounded-lg"
             >
               {link.label}
             </a>
           ))}
-          <a href="#enroll" className="mt-2">
-            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full">
-              Enroll Now
+          <a href="#contact" className="mt-1">
+            <Button variant="outline" className="w-full font-semibold rounded-full border-slate-200" style={{ color: "var(--brand-navy)" }}>
+              Contact Me
+            </Button>
+          </a>
+          <a href="/register" className="mt-1">
+            <Button className="w-full text-white font-semibold rounded-full" style={{ backgroundColor: "var(--brand-navy)" }}>
+              Register
             </Button>
           </a>
         </motion.div>

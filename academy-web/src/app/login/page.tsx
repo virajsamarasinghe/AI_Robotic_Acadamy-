@@ -43,7 +43,7 @@ export default function LoginPage() {
             <Image src="/logo.png" alt="kidslab.lk" width={64} height={64} className="object-contain" />
           </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Admin Portal</h1>
-          <p className="text-slate-500 text-sm mt-1">kidslab.lk · Management Dashboard</p>
+          <p className="text-slate-500 text-sm mt-1"><span style={{ color: "var(--brand-navy)" }}>kid<span style={{ color: "var(--brand-red)" }}>s</span>lab.lk</span> · Management Dashboard</p>
         </div>
 
         {/* Card */}
