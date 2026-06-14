@@ -253,7 +253,7 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.3 }}
                   className="mt-9 flex flex-wrap gap-3"
                 >
-                  <a href="#enroll" id="enroll">
+                  <a href="/register">
                     <Button
                       size="lg"
                       className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 h-12 rounded-full text-[15px] tracking-[-0.01em] shadow-md shadow-blue-200 transition-all"
@@ -611,6 +611,7 @@ export default function Home() {
               </p>
 
               <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="/register">
                 <Button
                   size="lg"
                   className="bg-white text-blue-700 hover:bg-blue-50 font-bold px-10 h-12 rounded-full text-[15px] tracking-[-0.01em] shadow-lg transition-all"
@@ -618,6 +619,7 @@ export default function Home() {
                   Enrol Now — Free First Class
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
+                </a>
                 <a
                   href="https://www.facebook.com/profile.php?id=61585638656242"
                   target="_blank"
