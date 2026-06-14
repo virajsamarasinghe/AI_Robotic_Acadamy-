@@ -152,6 +152,31 @@
   text-transform: uppercase;
 }
 
+/* ── Register button highlight ── */
+@keyframes btn-shimmer {
+  0%   { left: -70%; }
+  60%  { left: 130%; }
+  100% { left: 130%; }
+}
+
+.btn-register {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-register::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.32), transparent);
+  animation: btn-shimmer 3s ease-in-out 1.2s infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
 /* ── Register page fluid sizing ── */
 .reg-panel-heading {
   font-size: clamp(2.25rem, 5vw, 7rem);

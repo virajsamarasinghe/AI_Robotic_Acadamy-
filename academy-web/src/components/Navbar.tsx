@@ -66,11 +66,26 @@ export default function Navbar() {
               Contact Me
             </Button>
           </a>
-          <a href="/register" className="hidden md:block">
-            <Button className="text-white font-semibold text-sm xl:text-base 2xl:text-lg px-5 xl:px-7 h-9 xl:h-11 2xl:h-12 rounded-full shadow-sm transition-all" style={{ backgroundColor: "var(--brand-navy)" }}>
-              Register
-            </Button>
-          </a>
+          <motion.div
+            className="hidden md:block rounded-full"
+            animate={{
+              boxShadow: [
+                "0 0 0 0px rgba(29,43,82,0.45)",
+                "0 0 0 5px rgba(29,43,82,0.12)",
+                "0 0 0 10px rgba(29,43,82,0)",
+              ],
+            }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
+          >
+            <a href="/register">
+              <Button
+                className="btn-register text-white font-semibold text-sm xl:text-base 2xl:text-lg px-5 xl:px-7 h-9 xl:h-11 2xl:h-12 rounded-full shadow-sm"
+                style={{ backgroundColor: "var(--brand-navy)" }}
+              >
+                Register
+              </Button>
+            </a>
+          </motion.div>
           {/* Mobile toggle */}
           <button
             className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100"

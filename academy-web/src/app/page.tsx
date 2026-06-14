@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import AnimateIn from "@/components/AnimateIn";
@@ -19,11 +19,28 @@ import FacebookIcon from "@/components/FacebookIcon";
 
 /* ─── Data ─── */
 
+const founders = [
+  {
+    name: "Viraj Samarasinghe",
+    role: "Software Engineer · AI Specialized",
+    photo: "/viraj.jpg",
+    linkedin: "https://www.linkedin.com/in/viraj-samarasinghe",
+    tags: ["AI & Machine Learning", "Robotics", "Embedded Systems"],
+  },
+  {
+    name: "Menura Dulkith",
+    role: "Software Engineer · AI Specialized",
+    photo: "/menura.jpg",
+    linkedin: "https://www.linkedin.com/in/menura-dulkith",
+    tags: ["AI & Machine Learning", "Robotics", "Embedded Systems"],
+  },
+];
+
 const stats = [
-  { value: "500+", label: "Young Innovators", icon: Users },
-  { value: "10+",  label: "Expert Engineers",  icon: GraduationCap },
-  { value: "6",    label: "Programs",           icon: BookOpen },
-  { value: "100%", label: "Hands-on Learning",  icon: FlaskConical },
+  { value: "50+",  label: "Young Innovators", icon: Users },
+  { value: "5+",   label: "Expert Engineers", icon: GraduationCap },
+  { value: "1",    label: "Program",          icon: BookOpen },
+  { value: "100%", label: "Hands-on Learning", icon: FlaskConical },
 ];
 
 const programs = [
@@ -174,6 +191,75 @@ function SectionLabel({ children, className = "" }: { children: React.ReactNode;
 
 /* ─── Page ─── */
 
+/* ── LinkedIn icon ── */
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
+
+/* ── Seminar countdown ── */
+function SeminarCountdown() {
+  const [t, setT] = useState({ d: 0, h: 0, m: 0, s: 0 });
+
+  useEffect(() => {
+    const target = new Date("2026-06-27T00:00:00").getTime();
+    const tick = () => {
+      const diff = target - Date.now();
+      if (diff <= 0) { setT({ d: 0, h: 0, m: 0, s: 0 }); return; }
+      setT({
+        d: Math.floor(diff / 86_400_000),
+        h: Math.floor((diff % 86_400_000) / 3_600_000),
+        m: Math.floor((diff % 3_600_000) / 60_000),
+        s: Math.floor((diff % 60_000) / 1_000),
+      });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="flex items-center gap-1 xl:gap-2">
+      {([
+        [t.d, "DAYS"], [t.h, "HRS"], [t.m, "MIN"], [t.s, "SEC"],
+      ] as [number, string][]).map(([v, l], i) => (
+        <div key={l} className="flex items-center gap-1 xl:gap-2">
+          {i > 0 && (
+            <span className="text-white/35 font-bold text-lg xl:text-xl 2xl:text-2xl leading-none pb-4">
+              :
+            </span>
+          )}
+          <div className="text-center">
+            <div
+              className="rounded-xl xl:rounded-2xl bg-white/15 flex items-center justify-center"
+              style={{
+                minWidth: "clamp(2.5rem, 3.5vw, 4.5rem)",
+                padding: "clamp(0.4rem, 0.7vw, 1rem) clamp(0.5rem, 0.9vw, 1.25rem)",
+              }}
+            >
+              <span
+                className="text-white font-extrabold tabular-nums leading-none"
+                style={{ fontSize: "clamp(1.1rem, 1.8vw, 2.5rem)" }}
+              >
+                {String(v).padStart(2, "0")}
+              </span>
+            </div>
+            <p
+              className="text-white/45 font-semibold tracking-widest mt-1"
+              style={{ fontSize: "clamp(0.5rem, 0.55vw, 0.7rem)" }}
+            >
+              {l}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Home() {
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -223,8 +309,8 @@ export default function Home() {
                   transition={{ duration: 0.45 }}
                 >
                   <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-label mb-7" style={{ backgroundColor: "#f0f1f5", border: "1px solid #c8ccd8", color: "var(--brand-navy)" }}>
-                    <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: "var(--brand-red)" }} />
-                    Enrolments Open · 2025
+                    <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-green-500" />
+                    Enrolments Open · 2026
                   </span>
                 </motion.div>
 
@@ -264,16 +350,28 @@ export default function Home() {
                   transition={{ duration: 0.6, delay: 0.3 }}
                   className="mt-9 flex flex-wrap gap-3"
                 >
-                  <a href="/register">
-                    <Button
-                      size="lg"
-                      className="text-white font-semibold px-8 xl:px-10 h-12 xl:h-14 2xl:h-16 rounded-full text-[15px] xl:text-base 2xl:text-lg tracking-[-0.01em] shadow-md transition-all"
-                      style={{ backgroundColor: "var(--brand-navy)" }}
-                    >
-                      Register for Free Seminar
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </a>
+                  <motion.div
+                    className="rounded-full"
+                    animate={{
+                      boxShadow: [
+                        "0 0 0 0px rgba(29,43,82,0.45)",
+                        "0 0 0 7px rgba(29,43,82,0.13)",
+                        "0 0 0 14px rgba(29,43,82,0)",
+                      ],
+                    }}
+                    transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
+                  >
+                    <a href="/register">
+                      <Button
+                        size="lg"
+                        className="btn-register text-white font-semibold px-8 xl:px-10 h-12 xl:h-14 2xl:h-16 rounded-full text-[15px] xl:text-base 2xl:text-lg tracking-[-0.01em] shadow-md"
+                        style={{ backgroundColor: "var(--brand-navy)" }}
+                      >
+                        Register for Free Seminar
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </a>
+                  </motion.div>
                   <a href="#programs">
                     <Button
                       size="lg"
@@ -365,12 +463,39 @@ export default function Home() {
               </motion.div>
             </div>
 
+            {/* ── Seminar countdown banner ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.52 }}
+              className="mt-12 xl:mt-16 rounded-2xl xl:rounded-3xl overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--brand-navy) 0%, #2a3f6f 55%, #5a1515 100%)",
+              }}
+            >
+              <div className="px-6 xl:px-10 py-5 xl:py-7 flex flex-col sm:flex-row items-center justify-between gap-4 xl:gap-6">
+                <div className="flex items-center gap-3 xl:gap-4">
+                  <div className="w-2.5 h-2.5 xl:w-3 xl:h-3 rounded-full bg-green-400 animate-pulse shrink-0" />
+                  <div>
+                    <p className="text-white font-bold text-base xl:text-xl 2xl:text-2xl tracking-tight">
+                      Free Seminar — 27 June 2026
+                    </p>
+                    <p className="text-white/55 text-sm xl:text-base mt-0.5">
+                      Seats are limited · Register now to secure your spot
+                    </p>
+                  </div>
+                </div>
+                <SeminarCountdown />
+              </div>
+            </motion.div>
+
             {/* Stats bar */}
             <motion.div
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.58 }}
-              className="mt-20 xl:mt-28 grid grid-cols-2 md:grid-cols-4 gap-4 xl:gap-6"
+              className="mt-6 xl:mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 xl:gap-6"
             >
               {stats.map(({ value, label, icon: Icon }) => (
                 <div
@@ -433,14 +558,26 @@ export default function Home() {
                 <AnimateIn key={p.title} delay={i * 0.07}>
                   {p.active ? (
                     /* ── Active program card ── */
-                    <Card className="border-2 rounded-2xl h-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style={{ borderColor: "var(--brand-navy)", backgroundColor: "#fff" }}>
+                    <motion.div
+                      className="h-full rounded-2xl"
+                      animate={{
+                        boxShadow: [
+                          "0 0 0 0px rgba(29,43,82,0.3), 0 10px 40px rgba(29,43,82,0.08)",
+                          "0 0 0 5px rgba(29,43,82,0.1), 0 10px 40px rgba(29,43,82,0.15)",
+                          "0 0 0 10px rgba(29,43,82,0), 0 10px 40px rgba(29,43,82,0.08)",
+                        ],
+                      }}
+                      transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
+                    >
+                    <Card className="border-2 rounded-2xl h-full hover:-translate-y-1 transition-transform duration-300" style={{ borderColor: "var(--brand-navy)", backgroundColor: "#fff" }}>
                       <CardContent className="p-7 flex flex-col gap-5 h-full">
                         {/* Header */}
                         <div className="flex items-start justify-between">
                           <div className={`w-12 h-12 rounded-xl ${p.iconBg} flex items-center justify-center`}>
                             <p.icon className={`w-6 h-6 ${p.iconColor}`} />
                           </div>
-                          <span className="text-label px-3 py-1 rounded-full text-white text-[10px]" style={{ backgroundColor: "var(--brand-red)" }}>
+                          <span className="text-label px-3 py-1 rounded-full text-white text-[10px] inline-flex items-center gap-1.5" style={{ backgroundColor: "var(--brand-red)" }}>
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shrink-0" />
                             Enrolling Now
                           </span>
                         </div>
@@ -474,12 +611,25 @@ export default function Home() {
 
                         {/* CTA */}
                         <a href="/register" className="mt-auto">
-                          <button className="w-full text-white font-semibold h-11 rounded-full text-[14px] tracking-[-0.01em] transition-all hover:opacity-90" style={{ backgroundColor: "var(--brand-navy)" }}>
-                            Register for Free Seminar
-                          </button>
+                          <motion.div
+                            className="rounded-full"
+                            animate={{
+                              boxShadow: [
+                                "0 0 0 0px rgba(29,43,82,0.4)",
+                                "0 0 0 4px rgba(29,43,82,0.13)",
+                                "0 0 0 8px rgba(29,43,82,0)",
+                              ],
+                            }}
+                            transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
+                          >
+                            <button className="btn-register w-full text-white font-semibold h-11 rounded-full text-[14px] tracking-[-0.01em] hover:opacity-90" style={{ backgroundColor: "var(--brand-navy)" }}>
+                              Register for Free Seminar
+                            </button>
+                          </motion.div>
                         </a>
                       </CardContent>
                     </Card>
+                    </motion.div>
                   ) : (
                     /* ── Coming soon card ── */
                     <Card className={`${p.color} border-0 rounded-2xl h-full relative overflow-hidden`}>
@@ -545,71 +695,140 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ══ University of Ruhuna ═══════════════════════════════════════ */}
-        <section id="team" className="py-28 px-6 xl:py-36 xl:px-12 bg-gradient-to-br from-slate-900 via-blue-950 to-violet-950">
-          <div className="max-w-6xl mx-auto">
-            <AnimateIn className="text-center mb-16">
-              <p className="text-label text-blue-400 mb-3">Our Instructors</p>
+        {/* ══ Team / Founders ════════════════════════════════════════════ */}
+        <section id="team" className="py-28 px-6 xl:py-36 xl:px-12 bg-gradient-to-br from-slate-900 via-blue-950 to-violet-950 relative overflow-hidden">
+          {/* Decorative blobs */}
+          <div className="absolute -left-32 top-0 w-96 h-96 rounded-full opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle, #3b82f6, transparent)" }} />
+          <div className="absolute -right-32 bottom-0 w-96 h-96 rounded-full opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle, #8b5cf6, transparent)" }} />
+
+          <div className="max-w-screen-2xl mx-auto relative z-10">
+
+            {/* Header */}
+            <AnimateIn className="text-center mb-16 xl:mb-20">
+              <p className="text-label text-blue-400 mb-3">Meet the Founders</p>
               <h2 className="text-display-lg text-white">
-                Taught by Real{" "}
-                <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+                Built by Real{" "}
+                <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(to right, #60a5fa, #a78bfa)" }}>
                   Engineers
                 </span>
               </h2>
-              <p className="text-body-xl text-slate-400 mt-5 max-w-lg mx-auto">
-                Not just teachers — actual Computer Engineering professionals
-                who bring real industry knowledge to every class.
+              <p className="text-body-xl text-slate-400 mt-5 max-w-xl mx-auto">
+                Computer Engineering graduates from the University of Ruhuna,
+                specializing in AI &amp; Robotics.
               </p>
             </AnimateIn>
 
-            <AnimateIn>
-              <div className="bg-white/[0.06] border border-white/10 rounded-3xl p-10 md:p-16 flex flex-col md:flex-row gap-12 items-center backdrop-blur-sm">
-                <div className="shrink-0 flex flex-col items-center gap-5">
-                  <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center shadow-2xl">
-                    <GraduationCap className="w-14 h-14 text-white" />
-                  </div>
-                  <div className="text-center">
-                    <p className="text-white font-semibold" style={{ fontSize: "0.875rem" }}>
-                      University of Ruhuna
-                    </p>
-                    <p className="text-slate-400 mt-0.5" style={{ fontSize: "0.75rem" }}>
-                      Est. 1978 · Matara, Sri Lanka
-                    </p>
-                  </div>
-                </div>
+            {/* Founder cards — full-bleed portrait */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 xl:gap-8 max-w-2xl xl:max-w-4xl 2xl:max-w-5xl mx-auto">
+              {founders.map((f, i) => (
+                <AnimateIn key={f.name} delay={i * 0.15}>
+                  <div
+                    className="group relative rounded-3xl overflow-hidden shadow-2xl hover:scale-[1.02] transition-transform duration-500"
+                    style={{ aspectRatio: "3 / 4" }}
+                  >
+                    {/* Full-bleed photo */}
+                    <Image
+                      src={f.photo}
+                      alt={f.name}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 600px"
+                    />
 
-                <Separator orientation="vertical" className="hidden md:block h-44 bg-white/10" />
+                    {/* Dark gradient overlay — bottom-heavy so text is readable */}
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(to top, rgba(8,12,35,1) 0%, rgba(8,12,35,0.88) 35%, rgba(8,12,35,0.35) 65%, rgba(8,12,35,0.1) 100%)",
+                      }}
+                    />
 
-                <div className="flex-1">
-                  <p className="text-label text-blue-400 mb-2">Faculty of Engineering</p>
-                  <h3 className="text-display-md text-white mb-1.5" style={{ fontSize: "1.5rem" }}>
-                    Department of Computer Engineering
-                  </h3>
-                  <p className="text-body-md text-slate-300 mt-4 mb-7 leading-relaxed">
-                    <span style={{ color: "var(--brand-navy)" }}>kid<span style={{ color: "var(--brand-red)" }}>s</span>lab.lk</span> programs are designed and delivered by Computer Engineering
-                    graduates and undergraduates from the University of Ruhuna — one of
-                    Sri Lanka&apos;s most respected state universities. Every instructor brings
-                    deep technical knowledge and a passion for inspiring the next generation
-                    of engineers.
-                  </p>
-                  <div className="flex flex-wrap gap-2.5">
-                    {["Computer Engineering", "Embedded Systems", "Machine Learning", "Robotics & Control", "IoT Development"].map((tag) => (
+                    {/* Co-Founder badge — top left */}
+                    <div className="absolute top-4 left-4 xl:top-5 xl:left-5">
                       <span
-                        key={tag}
-                        className="text-label bg-white/10 text-blue-300 border border-white/10 px-3 py-1.5 rounded-full"
-                        style={{ letterSpacing: "0.06em" }}
+                        className="inline-flex items-center gap-1.5 bg-blue-500/90 text-white font-bold rounded-full px-3 py-1 tracking-widest uppercase backdrop-blur-sm"
+                        style={{ fontSize: "clamp(0.55rem, 0.6vw, 0.75rem)" }}
                       >
-                        {tag}
+                        <span className="w-1.5 h-1.5 rounded-full bg-white/80 shrink-0" />
+                        Co‑Founder
                       </span>
-                    ))}
+                    </div>
+
+                    {/* Content — pinned to bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 xl:p-8 2xl:p-10 flex flex-col gap-3 xl:gap-4">
+
+                      {/* Name + role */}
+                      <div>
+                        <h3
+                          className="text-white font-extrabold tracking-tight leading-tight"
+                          style={{ fontSize: "clamp(1.2rem, 1.6vw, 2rem)" }}
+                        >
+                          {f.name}
+                        </h3>
+                        <p
+                          className="text-blue-300 font-medium mt-1"
+                          style={{ fontSize: "clamp(0.78rem, 0.9vw, 1.1rem)" }}
+                        >
+                          {f.role}
+                        </p>
+                      </div>
+
+                      {/* University */}
+                      <div className="flex items-center gap-2 text-slate-400" style={{ fontSize: "clamp(0.68rem, 0.75vw, 0.9rem)" }}>
+                        <GraduationCap className="w-3.5 h-3.5 xl:w-4 xl:h-4 shrink-0 text-blue-400" />
+                        University of Ruhuna · Faculty of Engineering
+                      </div>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-1.5">
+                        {f.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="bg-white/10 text-blue-200 border border-white/15 px-2.5 py-1 rounded-full font-semibold tracking-wider uppercase backdrop-blur-sm"
+                            style={{ fontSize: "clamp(0.55rem, 0.6vw, 0.72rem)" }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* LinkedIn */}
+                      <a
+                        href={f.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 self-start inline-flex items-center gap-2 px-4 xl:px-5 py-2 xl:py-2.5 rounded-full border border-[#0A66C2]/50 bg-[#0A66C2]/20 hover:bg-[#0A66C2]/50 text-[#93c5fd] hover:text-white transition-all duration-200 font-semibold backdrop-blur-sm"
+                        style={{ fontSize: "clamp(0.75rem, 0.85vw, 1rem)" }}
+                      >
+                        <LinkedInIcon className="w-3.5 h-3.5 xl:w-4 xl:h-4 shrink-0" />
+                        LinkedIn Profile
+                      </a>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 mt-6 text-slate-400" style={{ fontSize: "0.875rem" }}>
-                    <MapPin className="w-4 h-4 shrink-0" />
-                    Hapugala, Galle 80000, Sri Lanka
-                  </div>
+                </AnimateIn>
+              ))}
+            </div>
+
+            {/* University strip */}
+            <AnimateIn delay={0.3} className="mt-10 xl:mt-14">
+              <div className="max-w-3xl xl:max-w-5xl mx-auto bg-white/[0.04] border border-white/8 rounded-2xl px-8 xl:px-12 py-5 xl:py-6 flex flex-col sm:flex-row items-center justify-center gap-4 xl:gap-8">
+                <div className="flex items-center gap-3">
+                  <GraduationCap className="w-5 h-5 xl:w-6 xl:h-6 text-blue-400 shrink-0" />
+                  <p className="text-slate-300 font-semibold" style={{ fontSize: "clamp(0.8rem, 0.9vw, 1.1rem)" }}>
+                    University of Ruhuna · Faculty of Engineering
+                  </p>
+                </div>
+                <div className="hidden sm:block w-px h-5 bg-white/20" />
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-4 h-4 xl:w-5 xl:h-5 text-slate-500 shrink-0" />
+                  <p className="text-slate-500" style={{ fontSize: "clamp(0.75rem, 0.85vw, 1rem)" }}>
+                    Hapugala, Galle, Sri Lanka
+                  </p>
                 </div>
               </div>
             </AnimateIn>
+
           </div>
         </section>
 
@@ -837,7 +1056,7 @@ export default function Home() {
             </div>
 
             <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-500" style={{ fontSize: "0.8125rem" }}>
-              <p>© 2025 kid<span style={{ color: "#e07070" }}>s</span>lab.lk — All rights reserved.</p>
+              <p>© 2026 kid<span style={{ color: "#e07070" }}>s</span>lab.lk — All rights reserved.</p>
               <p className="flex items-center gap-1.5">
                 <GraduationCap className="w-4 h-4" style={{ color: "#e07070" }} />
                 Powered by University of Ruhuna, Faculty of Engineering
