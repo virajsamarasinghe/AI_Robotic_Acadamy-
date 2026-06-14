@@ -98,6 +98,10 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
 
+  verification: {
+    google: "CfMuSDh9YhqTrRtebz6FMzLUyreCuosJgNQP2c9SRFc",
+  },
+
   category: "education",
 };
 
