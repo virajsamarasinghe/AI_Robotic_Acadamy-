@@ -1,5 +1,9 @@
 "use client";
 
+// Page-level metadata is exported from the companion server module
+// (Next.js ignores `export const metadata` in "use client" files —
+//  set title/description via the parent layout or a separate layout.tsx)
+
 import { useState } from "react";
 import Image from "next/image";
 import { CheckCircle, ArrowLeft, Star, Users, Clock, BadgeCheck } from "lucide-react";
