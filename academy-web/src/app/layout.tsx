@@ -70,6 +70,16 @@ export const metadata: Metadata = {
     },
   },
 
+  icons: {
+    icon: [
+      { url: "/og-image.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: ["/og-image.png"],
+    apple: [
+      { url: "/og-image.png", sizes: "512x512", type: "image/png" },
+    ],
+  },
+
   openGraph: {
     type:        "website",
     locale:      "en_LK",
@@ -79,7 +89,7 @@ export const metadata: Metadata = {
     description:  DESCRIPTION,
     images: [
       {
-        url:    "/logo.png",
+        url:    "/og-image.png",
         width:  512,
         height: 512,
         alt:    "kidslab.lk — Robotics & AI Academy",
@@ -88,10 +98,10 @@ export const metadata: Metadata = {
   },
 
   twitter: {
-    card:        "summary_large_image",
+    card:        "summary",
     title:       `${SITE_NAME} — Robotics & AI Academy for Kids`,
     description:  DESCRIPTION,
-    images:      ["/logo.png"],
+    images:      ["/og-image.png"],
   },
 
   alternates: {
