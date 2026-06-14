@@ -2,7 +2,8 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
-import { Bot, Cpu, Zap } from "lucide-react";
+import { Cpu, Zap, Bot } from "lucide-react";
+import Image from "next/image";
 
 export default function LoadingScreen() {
   const [visible, setVisible] = useState(true);
@@ -48,14 +49,21 @@ export default function LoadingScreen() {
               animate={{ rotate: -360 }}
               transition={{ duration: 1.8, repeat: Infinity, ease: "linear" }}
             />
-            {/* Center icon */}
+            {/* Center logo */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-              className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center shadow-lg"
+              className="w-12 h-12 rounded-xl overflow-hidden shadow-lg"
             >
-              <Bot className="w-6 h-6 text-white" />
+              <Image
+                src="/logo.png"
+                alt="kidslab.lk"
+                width={48}
+                height={48}
+                className="w-full h-full object-contain"
+                priority
+              />
             </motion.div>
           </div>
 
