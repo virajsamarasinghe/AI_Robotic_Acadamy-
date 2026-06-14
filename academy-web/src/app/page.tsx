@@ -841,9 +841,9 @@ export default function Home() {
               </p>
             </AnimateIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
               {programs.map((p, i) => (
-                <AnimateIn key={p.title} delay={i * 0.07}>
+                <AnimateIn key={p.title} delay={i * 0.07} className="h-full min-h-[560px]">
                   {p.active ? (
                     /* ── Active program card ── */
                     <motion.div
@@ -967,9 +967,9 @@ export default function Home() {
               </p>
             </AnimateIn>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
               {whyUs.map((item, i) => (
-                <AnimateIn key={item.title} delay={i * 0.07}>
+                <AnimateIn key={item.title} delay={i * 0.07} className="h-full">
                   <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-7 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 h-full">
                     <div className={`w-11 h-11 rounded-xl ${item.bg} flex items-center justify-center mb-5`}>
                       <item.icon className={`w-5 h-5 ${item.color}`} />
@@ -1009,7 +1009,7 @@ export default function Home() {
             {/* Founder cards — full-bleed portrait */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 xl:gap-8 max-w-2xl xl:max-w-4xl 2xl:max-w-5xl mx-auto">
               {founders.map((f, i) => (
-                <AnimateIn key={f.name} delay={i * 0.15}>
+                <AnimateIn key={f.name} delay={i * 0.15} className="h-full">
                   <div
                     className="group relative rounded-3xl overflow-hidden shadow-2xl hover:scale-[1.02] transition-transform duration-500"
                     style={{ aspectRatio: "3 / 4" }}
@@ -1133,9 +1133,9 @@ export default function Home() {
               </h2>
             </AnimateIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
               {testimonials.map((t, i) => (
-                <AnimateIn key={t.name} delay={i * 0.1}>
+                <AnimateIn key={t.name} delay={i * 0.1} className="h-full">
                   <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8 flex flex-col gap-5 h-full hover:shadow-md transition-shadow duration-300">
                     <div className="flex gap-1">
                       {Array.from({ length: t.stars }).map((_, s) => (
@@ -1179,9 +1179,9 @@ export default function Home() {
               </p>
             </AnimateIn>
 
-            <div className="grid md:grid-cols-2 gap-8 xl:gap-12 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 xl:gap-12 max-w-4xl mx-auto items-stretch">
               {/* Contact channels */}
-              <AnimateIn delay={0.1}>
+              <AnimateIn delay={0.1} className="h-full">
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-8 xl:p-10 flex flex-col gap-5 h-full">
                   <h3 className="text-display-md" style={{ color: "var(--brand-navy)" }}>Contact Us</h3>
 
@@ -1242,7 +1242,7 @@ export default function Home() {
               </AnimateIn>
 
               {/* CTA card */}
-              <AnimateIn delay={0.18}>
+              <AnimateIn delay={0.18} className="h-full">
                 <div className="rounded-2xl p-8 xl:p-10 flex flex-col justify-between h-full relative overflow-hidden" style={{ background: "linear-gradient(135deg, var(--brand-navy) 0%, #2a3f6f 60%, #5a1515 100%)" }}>
                   {/* Decorative rings */}
                   <div className="absolute -right-16 -top-16 w-64 h-64 rounded-full border border-white/10" />
