@@ -357,6 +357,10 @@ export default function Home() {
       "@type": "Event",
       "name": "Free Robotics & AI Introductory Seminar — kidslab.lk",
       "description": "A free introductory seminar covering basics of Robotics & AI, mindset building, and motivation. No obligation to enrol. Open to children aged 9–14 and their parents.",
+      "image": [
+        "https://kidslab.lk/og-image.png",
+        "https://kidslab.lk/logo.png",
+      ],
       "startDate": "2026-06-27T09:00:00+05:30",
       "endDate":   "2026-06-27T13:00:00+05:30",
       "eventStatus": "https://schema.org/EventScheduled",
