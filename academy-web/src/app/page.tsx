@@ -569,7 +569,7 @@ export default function Home() {
         {/* ══ Hero ══════════════════════════════════════════════════════ */}
         <section
           ref={heroRef}
-          className="relative min-h-screen flex items-center pt-16 overflow-hidden"
+          className="relative min-h-svh lg:h-svh flex items-center pt-16 pb-4 overflow-hidden"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white to-violet-50/60" />
           <div
@@ -589,9 +589,9 @@ export default function Home() {
 
           <motion.div
             style={{ y: heroY }}
-            className="relative z-10 max-w-screen-2xl mx-auto px-6 lg:px-10 xl:px-16 w-full py-24 xl:py-32"
+            className="relative z-10 max-w-screen-2xl mx-auto px-6 lg:px-10 xl:px-16 w-full py-8 lg:py-8 xl:py-12 2xl:py-20"
           >
-            <div className="grid lg:grid-cols-2 gap-20 xl:gap-28 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-20 items-center">
 
               {/* ── Left: copy ── */}
               <div className="w-full">
@@ -600,7 +600,7 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45 }}
                 >
-                  <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-label mb-7" style={{ backgroundColor: "#f0f1f5", border: "1px solid #c8ccd8", color: "var(--brand-navy)" }}>
+                  <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-label mb-4 lg:mb-5" style={{ backgroundColor: "#f0f1f5", border: "1px solid #c8ccd8", color: "var(--brand-navy)" }}>
                     <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-green-500" />
                     Enrolments Open · 2026
                   </span>
@@ -626,7 +626,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-body-xl text-slate-500 mt-6"
+                  className="text-body-xl text-slate-500 mt-4 lg:mt-5"
                 >
                   Sri Lanka&apos;s leading Robotics &amp; AI academy for
                   children, conducted by{" "}
@@ -640,7 +640,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="mt-9 flex flex-wrap gap-3"
+                  className="mt-6 lg:mt-7 flex flex-wrap gap-3"
                 >
                   <motion.div
                     className="rounded-full"
@@ -679,7 +679,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.44 }}
-                  className="mt-9 flex flex-wrap gap-5"
+                  className="mt-5 lg:mt-7 flex flex-wrap gap-5"
                 >
                   {["Ages 8–18", "Hands-on Kits", "University Certified"].map((t) => (
                     <div key={t} className="flex items-center gap-2 text-slate-500" style={{ fontSize: "0.875rem" }}>
@@ -760,13 +760,13 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.52 }}
-              className="mt-12 xl:mt-16 rounded-2xl xl:rounded-3xl overflow-hidden"
+              className="mt-6 lg:mt-8 xl:mt-10 rounded-2xl xl:rounded-3xl overflow-hidden"
               style={{
                 background:
                   "linear-gradient(135deg, var(--brand-navy) 0%, #2a3f6f 55%, #5a1515 100%)",
               }}
             >
-              <div className="px-6 xl:px-10 py-5 xl:py-7 flex flex-col sm:flex-row items-center justify-between gap-4 xl:gap-6">
+              <div className="px-6 xl:px-10 py-4 lg:py-5 xl:py-7 flex flex-col sm:flex-row items-center justify-between gap-4 xl:gap-6">
                 <div className="flex items-center gap-3 xl:gap-4">
                   <div className="w-2.5 h-2.5 xl:w-3 xl:h-3 rounded-full bg-green-400 animate-pulse shrink-0" />
                   <div>
@@ -787,12 +787,12 @@ export default function Home() {
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.58 }}
-              className="mt-6 xl:mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 xl:gap-6"
+              className="mt-4 lg:mt-5 xl:mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 xl:gap-6"
             >
               {stats.map(({ value, label, icon: Icon }) => (
                 <div
                   key={label}
-                  className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 xl:px-8 py-5 xl:py-7 flex items-center gap-4 xl:gap-6"
+                  className="bg-white rounded-2xl border border-slate-100 shadow-sm px-6 xl:px-8 py-4 lg:py-4 xl:py-7 flex items-center gap-4 xl:gap-6"
                 >
                   <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
                     <Icon className="w-5 h-5 text-blue-600" />
