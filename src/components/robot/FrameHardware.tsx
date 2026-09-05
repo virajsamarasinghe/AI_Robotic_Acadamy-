@@ -54,7 +54,7 @@ function threadProfile(length: number, radius: number, turns: number) {
 }
 
 const screwThread = threadProfile(0.22, 0.035, 9);
-const spacerThread = threadProfile(0.055, 0.049, 3);
+const spacerThread = threadProfile(0.055, 0.035, 3);
 const spacerSection = hexagon(0.092, 0.033);
 const nutSection = hexagon(0.074, 0.036);
 const washerSection = new Shape();

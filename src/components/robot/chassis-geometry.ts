@@ -49,7 +49,11 @@ export function createChassisShape() {
   shape.quadraticCurveTo(-halfWidth, rear, -1.72, rear);
   shape.closePath();
 
-  Object.values(CHASSIS_MOUNTS).forEach(([x, z]) => circleHole(shape, x, z, 0.085));
+  // M3 clearance must be smaller than the screw head and spacer shoulder.
+  Object.values(CHASSIS_MOUNTS).forEach(([x, z]) => circleHole(shape, x, z, 0.045));
+
+  // The caster's two mounting screws share the bracket's actual bolt pattern.
+  [-0.3, 0.3].forEach((x) => circleHole(shape, x, CASTER_MOUNT[1], 0.045));
 
   // Functional mounting pattern visible on the physical kit.
   [
@@ -73,4 +77,3 @@ export function createChassisShape() {
 
   return shape;
 }
-

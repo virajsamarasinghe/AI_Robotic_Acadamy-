@@ -1,11 +1,16 @@
 import type { RobotMotionConfig } from "./robot-types";
 
 export const FRAME_UPPER_Y = 0.9;
+export const DRIVE_AXLE_Y = -0.42;
+export const DRIVE_AXLE_Z = -0.08;
+export const CASTER_EXTENSION = 0.51;
 
 /**
  * Scroll phases follow the robot's physical disassembly order. Every offset is
  * in the robot's local coordinate system, so the exploded assembly remains
- * coherent while its parent completes one full turn.
+ * coherent while its parent completes one full turn. Wheels must completely
+ * clear the output shafts before either motor moves: wheel phase ends at 0.64,
+ * motor phase starts at 0.68. Keep that clearance when changing the sequence.
  */
 export const robotMotionConfig: readonly RobotMotionConfig[] = [
   {
@@ -28,7 +33,7 @@ export const robotMotionConfig: readonly RobotMotionConfig[] = [
   },
   {
     id: "upperScrews",
-    phase: [0.26, 0.5],
+    phase: [0.24, 0.48],
     basePosition: [0, FRAME_UPPER_Y, 0],
     position: [0, 0.82, 0],
     follows: "frameUpper",
@@ -42,15 +47,15 @@ export const robotMotionConfig: readonly RobotMotionConfig[] = [
   },
   {
     id: "caster",
-    phase: [0.78, 0.98],
-    basePosition: [0, -0.08, 0],
+    phase: [0.8, 1],
+    basePosition: [0, -0.08 - CASTER_EXTENSION, 0],
     position: [0, -0.8, 0.34],
     follows: "frameLower",
   },
   {
     id: "arduino",
     phase: [0.06, 0.3],
-    basePosition: [-0.72, 0.99, 0.55],
+    basePosition: [-0.9, 0.99, 0.55],
     position: [-0.18, 1.65, 0.08],
     rotation: [0, -0.12, -0.04],
   },
@@ -71,38 +76,43 @@ export const robotMotionConfig: readonly RobotMotionConfig[] = [
   {
     id: "motorDriver",
     phase: [0.16, 0.43],
-    basePosition: [0.9, 1.0, 0.7],
-    position: [0.82, 1.18, 0.22],
+    basePosition: [0.96, 1.0, 0.7],
+    position: [0.82, 1.38, 0.22],
     rotation: [-0.04, 0.12, 0.05],
   },
   {
     id: "motorLeft",
-    phase: [0.54, 0.77],
-    basePosition: [-1.65, -0.05, -0.08],
-    position: [-1.18, 0, 0],
+    phase: [0.68, 0.85],
+    basePosition: [-1.65, DRIVE_AXLE_Y, DRIVE_AXLE_Z],
+    position: [-1.05, 0, 0],
+    follows: "frameLower",
   },
   {
     id: "motorRight",
-    phase: [0.54, 0.77],
-    basePosition: [1.65, -0.05, -0.08],
-    position: [1.18, 0, 0],
+    phase: [0.68, 0.85],
+    basePosition: [1.65, DRIVE_AXLE_Y, DRIVE_AXLE_Z],
+    position: [1.05, 0, 0],
+    follows: "frameLower",
   },
   {
     id: "wheelLeft",
-    phase: [0.65, 0.87],
-    basePosition: [-2.34, -0.03, -0.08],
-    position: [-1.52, 0, 0],
+    phase: [0.46, 0.64],
+    basePosition: [-2.34, DRIVE_AXLE_Y, DRIVE_AXLE_Z],
+    position: [-1.65, 0, 0],
+    follows: "frameLower",
   },
   {
     id: "wheelRight",
-    phase: [0.65, 0.87],
-    basePosition: [2.34, -0.03, -0.08],
-    position: [1.52, 0, 0],
+    phase: [0.46, 0.64],
+    basePosition: [2.34, DRIVE_AXLE_Y, DRIVE_AXLE_Z],
+    position: [1.65, 0, 0],
+    follows: "frameLower",
   },
   {
     id: "irSensor",
     phase: [0.72, 0.94],
     basePosition: [0, -0.2, 3.27],
     position: [0, -0.32, 1.2],
+    follows: "frameLower",
   },
 ];
