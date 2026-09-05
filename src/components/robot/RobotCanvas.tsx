@@ -72,9 +72,10 @@ function StableCanvas({ children }: { children: ReactNode }) {
     if (!canvas) return;
     if (!rootRef.current) {
       const rect = canvas.getBoundingClientRect();
+      const highQuality = rect.width >= 640;
       rootRef.current = createRoot(canvas);
       void rootRef.current.configure({
-        shadows: false,
+        shadows: highQuality ? "percentage" : false,
         dpr: [1, 1.25],
         frameloop: "demand",
         camera: { position: [7.4, 6.1, 9.4], fov: 38, near: 0.1, far: 100 },
@@ -94,7 +95,9 @@ function StableCanvas({ children }: { children: ReactNode }) {
     const observer = new ResizeObserver(() => {
       if (!canvas || !rootRef.current) return;
       const rect = canvas.getBoundingClientRect();
+      const highQuality = rect.width >= 640;
       void rootRef.current.configure({
+        shadows: highQuality ? "percentage" : false,
         frameloop: "demand",
         dpr: [1, 1.25],
         size: { width: rect.width, height: rect.height, top: 0, left: 0 },

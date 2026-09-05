@@ -48,7 +48,7 @@ export function useRobotAnimation(progress: RobotProgress, reduceMotion: boolean
     const world = worldRef.current;
     if (world) {
       world.rotation.y = -0.38 + p * Math.PI * 2;
-      world.scale.setScalar(MathUtils.lerp(1.34, 1, MathUtils.smoothstep(p, 0, 0.45)));
+      world.scale.setScalar(MathUtils.lerp(1.34, 0.82, MathUtils.smoothstep(p, 0, 0.45)));
     }
 
     for (const part of animationParts) {

@@ -84,7 +84,7 @@ function createWheel(): Parts {
     bumpMap: grain, bumpScale: 0.004,
   });
   const plastic = new THREE.MeshStandardMaterial({
-    color: "#dfb219", roughness: 0.35, metalness: 0,
+    color: "#e7b916", roughness: 0.39, metalness: 0,
     bumpMap: grain, bumpScale: 0.0012,
   });
   const steel = new THREE.MeshStandardMaterial({
@@ -120,9 +120,10 @@ function createWheel(): Parts {
   const axleHole = new THREE.Path();
   axleHole.absarc(0, 0, 0.108, 0, Math.PI * 2, true);
   rimShape.holes.push(axleHole);
-  for (let index = 0; index < 6; index++) {
-    const start = index * Math.PI / 3 + 0.135;
-    const end = (index + 1) * Math.PI / 3 - 0.135;
+  for (let index = 0; index < 5; index++) {
+    const step = Math.PI * 2 / 5;
+    const start = index * step + 0.16;
+    const end = (index + 1) * step - 0.16;
     const hole = new THREE.Path();
     hole.moveTo(Math.cos(start) * 0.248, Math.sin(start) * 0.248);
     hole.lineTo(Math.cos(start) * 0.543, Math.sin(start) * 0.543);

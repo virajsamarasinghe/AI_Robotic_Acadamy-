@@ -56,7 +56,7 @@ class ElectronicsBuilder {
     const existing = this.finishes.get(surface);
     if (existing) return existing;
     const properties: Record<Surface, THREE.MeshStandardMaterialParameters> = {
-      board: { color: this.kind === "driver" ? "#8d181c" : "#075068", metalness: 0.12, roughness: 0.48 },
+      board: { color: this.kind === "driver" ? "#8d181c" : this.kind === "sensor" ? "#111719" : "#075068", metalness: 0.12, roughness: 0.48 },
       black: { color: "#15181a", metalness: 0.08, roughness: 0.55 },
       metal: { color: "#bec6cb", metalness: 0.94, roughness: 0.28 },
       solder: { color: "#a8b5b6", metalness: 0.88, roughness: 0.34 },
@@ -141,7 +141,7 @@ function circuitTexture(kind: "arduino" | "driver" | "sensor") {
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Robot PCB texture could not be created");
   const width = canvas.width, height = canvas.height;
-  context.fillStyle = kind === "driver" ? "#a92023" : "#07576f";
+  context.fillStyle = kind === "driver" ? "#a92023" : kind === "sensor" ? "#111719" : "#07576f";
   context.fillRect(0, 0, width, height);
   // Deterministic, very fine solder-mask variation; no random frame updates.
   for (let i = 0; i < 5500; i++) {
@@ -357,29 +357,29 @@ function cellTexture() {
 
 function buildBattery() {
   const b = new ElectronicsBuilder("battery");
-  b.box("black", [1.75, 0.075, 1.08], [0, -0.174, 0], 0.024);
-  for (const z of [-0.514, 0, 0.514]) {
-    b.box("black", [1.65, 0.2, 0.045], [0, -0.059, z], 0.015);
-    for (const x of [-0.62, 0.62]) b.box("black", [0.29, 0.28, 0.05], [x, 0.01, z], 0.027);
+  b.box("black", [2.12, 0.075, 1.42], [0, -0.174, 0], 0.024);
+  for (const z of [-0.69, -0.225, 0.225, 0.69]) {
+    b.box("black", [2.02, 0.2, 0.045], [0, -0.059, z], 0.015);
+    for (const x of [-0.78, 0.78]) b.box("black", [0.32, 0.28, 0.05], [x, 0.01, z], 0.027);
   }
-  for (const x of [-0.829, 0.829]) b.box("black", [0.079, 0.382, 1.025], [x, -0.005, 0], 0.038);
+  for (const x of [-1.014, 1.014]) b.box("black", [0.079, 0.382, 1.365], [x, -0.005, 0], 0.038);
   const texture = cellTexture();
   b.textures.push(texture);
   b.material("purple").map = texture;
   b.material("purple").color.set("#ffffff");
-  for (const z of [-0.254, 0.254]) {
-    b.cylinder("purple", 0.225, 1.454, [0, 0.039, z], [0, 0, Math.PI / 2], 32);
+  for (const z of [-0.45, 0, 0.45]) {
+    b.cylinder("purple", 0.215, 1.82, [0, 0.039, z], [0, 0, Math.PI / 2], 32);
     for (const side of [-1, 1]) {
-      b.ring("purple", 0.208, 0.017, [side * 0.729, 0.039, z], [0, Math.PI / 2, 0]);
-      b.cylinder("metal", 0.177, 0.009, [side * 0.735, 0.039, z], [0, 0, Math.PI / 2], 24);
-      b.ring("black", 0.179, 0.012, [side * 0.742, 0.039, z], [0, Math.PI / 2, 0]);
+      b.ring("purple", 0.198, 0.017, [side * 0.91, 0.039, z], [0, Math.PI / 2, 0]);
+      b.cylinder("metal", 0.167, 0.009, [side * 0.916, 0.039, z], [0, 0, Math.PI / 2], 24);
+      b.ring("black", 0.169, 0.012, [side * 0.923, 0.039, z], [0, Math.PI / 2, 0]);
     }
-    b.cylinder("metal", 0.082, 0.027, [0.75, 0.039, z], [0, 0, Math.PI / 2]);
-    b.box("brass", [0.011, 0.112, 0.105], [0.784, 0.033, z], 0.009);
+    b.cylinder("metal", 0.078, 0.027, [0.93, 0.039, z], [0, 0, Math.PI / 2]);
+    b.box("brass", [0.011, 0.108, 0.101], [0.964, 0.033, z], 0.009);
     const spring: THREE.Vector3[] = [];
     for (let i = 0; i <= 48; i++) {
       const angle = i / 48 * Math.PI * 6;
-      spring.push(new THREE.Vector3(-0.76 - i / 48 * 0.038, 0.039 + Math.sin(angle) * 0.106, z + Math.cos(angle) * 0.106));
+      spring.push(new THREE.Vector3(-0.94 - i / 48 * 0.038, 0.039 + Math.sin(angle) * 0.101, z + Math.cos(angle) * 0.101));
     }
     b.add("metal", new THREE.TubeGeometry(new THREE.CatmullRomCurve3(spring), 48, 0.009, 5, false));
   }

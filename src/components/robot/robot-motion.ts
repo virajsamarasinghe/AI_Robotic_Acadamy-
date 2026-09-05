@@ -55,7 +55,7 @@ export const robotMotionConfig: readonly RobotMotionConfig[] = [
   {
     id: "arduino",
     phase: [0.06, 0.3],
-    basePosition: [-0.9, 0.99, 0.55],
+    basePosition: [-0.9, 0.99, 0.85],
     position: [-0.18, 1.65, 0.08],
     rotation: [0, -0.12, -0.04],
   },
@@ -69,7 +69,7 @@ export const robotMotionConfig: readonly RobotMotionConfig[] = [
   {
     id: "battery",
     phase: [0.15, 0.42],
-    basePosition: [0.82, 1.2, -1.78],
+    basePosition: [0.62, 1.2, -1.66],
     position: [0.62, 1.42, -0.24],
     rotation: [0.06, 0.14, 0.05],
   },

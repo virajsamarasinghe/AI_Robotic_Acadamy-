@@ -1,7 +1,8 @@
 "use client";
 
-import type { ReactNode } from "react";
-import type { Group } from "three";
+import { useFrame } from "@react-three/fiber";
+import { useRef, type ReactNode } from "react";
+import * as THREE from "three";
 import ChassisPlate from "./ChassisPlate";
 import { CHASSIS_MOUNTS, CHASSIS_THICKNESS, CASTER_MOUNT } from "./chassis-geometry";
 import { FrameCaster, FrameNut, FrameScrew, Standoff } from "./FrameHardware";
@@ -47,10 +48,35 @@ function CasterAssembly() {
 
 const motionById = new Map(robotMotionConfig.map((config) => [config.id, config]));
 
+function phase(progress: number, start: number, end: number) {
+  const value = THREE.MathUtils.clamp((progress - start) / (end - start), 0, 1);
+  return value * value * (3 - 2 * value);
+}
+
+function ShadowCatcher({ progress, reduceMotion }: { progress: RobotProgress; reduceMotion: boolean }) {
+  const ref = useRef<THREE.Mesh>(null);
+  useFrame(() => {
+    const mesh = ref.current;
+    if (!mesh) return;
+    const p = reduceMotion ? 0 : THREE.MathUtils.clamp(progress.get(), 0, 1);
+    const lowerOffset = -0.72 * phase(p, 0.42, 0.68);
+    const wheelBottom = -1.308 + lowerOffset;
+    const casterBottom = -1.31 + lowerOffset - 0.8 * phase(p, 0.8, 1);
+    const scale = THREE.MathUtils.lerp(1.34, 0.82, THREE.MathUtils.smoothstep(p, 0, 0.45));
+    mesh.position.y = -0.25 + Math.min(wheelBottom, casterBottom) * scale - 0.018;
+  });
+  return (
+    <mesh ref={ref} position={[0, -2.02, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+      <planeGeometry args={[18, 18]} />
+      <shadowMaterial transparent opacity={0.09} depthWrite={false} />
+    </mesh>
+  );
+}
+
 function RobotPart({ id, children, register }: {
   id: RobotPartId;
   children: ReactNode;
-  register: (id: RobotPartId, node: Group | null) => void;
+  register: (id: RobotPartId, node: THREE.Group | null) => void;
 }) {
   return <group ref={(node) => register(id, node)} position={motionById.get(id)?.basePosition}>{children}</group>;
 }
@@ -83,6 +109,7 @@ export default function RobotWorld({ progress, reduceMotion }: { progress: Robot
     <>
       <StudioLighting />
       <RobotModel progress={progress} reduceMotion={reduceMotion} />
+      <ShadowCatcher progress={progress} reduceMotion={reduceMotion} />
     </>
   );
 }
